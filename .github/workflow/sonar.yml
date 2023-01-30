@@ -1,13 +1,39 @@
-sonar.projectKey=Jesusnauta_w3ch1
-sonar.organization=jesusnauta
-
-# This is the name and version displayed in the SonarCloud UI.
-#sonar.projectName=w3ch1
-#sonar.projectVersion=1.0
-
-sonar.javascript.lcov.reportPaths=coverage/lcov.info
-# Path is relative to the sonar-project.properties file. Replace "\" by "/" on Windows.
-#sonar.sources=.
-
-# Encoding of the source code. Default is default system encoding
-#sonar.sourceEncoding=UTF-8
+nombre: Sonar
+en:
+  Empujar:
+    Sucursales:
+      - principal
+  pull_request:
+    Tipos: [abierto, sincronizado, reabierto]
+Empleos:
+  SonarCloud:
+    nombre: SonarCloud
+    Runs-on: ubuntu-latest
+    Pasos:
+      - Usos: Acciones/checkout@v2
+        con:
+          fetch-depth: 0 # Los clones superficiales deben deshabilitarse para una mejor relevancia del análisis
+      - nombre: Instalar módulos
+        Ejecutar: NPM CI
+      - name: Pruebas en producción con cobertura
+        ejecutar: npm ejecutar prueba:prod #Cambiar para un script npm válido
+      - nombre: SonarCloud Scan
+        usos: SonarSource/sonarcloud-github-action@master
+        ENV:
+          GITHUB_TOKEN: ${{ secretos. GITHUB_TOKEN }} # Necesario para obtener información de relaciones públicas, si la hay
+          SONAR_TOKEN: ${{ secretos. SONAR_TOKEN }}
+        # con:
+        # Argumentos adicionales para el escáner sonarcloud
+        # args:
+        # Claves únicas de su proyecto y organización. Puedes encontrarlos en SonarCloud > Information (menú inferior izquierdo)
+        # obligatorio
+        # -Dsonar.projectKey=alce65_ol-week9
+        # -Dsonar.organization=alce65
+        # Rutas separadas por comas a directorios que contienen archivos de origen principales.
+        #-Dsonar.sources= # opcional, el valor predeterminado es el directorio base del proyecto
+        # Cuando necesite que el análisis se realice en un directorio distinto de aquel desde el que se inició
+        #-Dsonar.projectBaseDir= # opcional, el valor predeterminado es .
+        # Rutas de acceso separadas por comas a directorios que contienen archivos de origen de prueba.
+        #-Dsonar.tests= # opcional. Para obtener más información sobre la cobertura del código, consulte https://docs.sonarcloud.io/enriching/test-coverage/overview/
+        # Agrega más detalles a los registros de análisis del lado del cliente y del servidor, activando el modo DEBUG para el analizador y agregando variables de entorno del lado cliente y propiedades del sistema al registro del servidor del procesamiento de informes de análisis.
+        #-Dsonar.verbose= # opcional, el valor predeterminado es false
