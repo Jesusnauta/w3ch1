@@ -10,6 +10,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
+  "name": "w1ch3",
+  "version": "1.0.0",
+  "description": "Week 3 - Challenge 1\r GoT DOM\r Tendrás que programar un interfaz de usuario para que refleje el siguiente modelo de datos.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "keywords": [],
   "author": "",
@@ -41,5 +49,9 @@
         ]
       }
     }
+  }
+}
+=======
+    "typescript": "^4.9.4"
   }
 }
